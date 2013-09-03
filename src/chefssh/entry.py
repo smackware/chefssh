@@ -1,3 +1,4 @@
+import os
 import getopt
 import sys
 import chef
@@ -33,7 +34,10 @@ def run(command):
         sys.exit(1)
 
     # configures pychef with ~/.chef/knife.rb
-    api = chef.autoconfigure()
+    if os.environ.has_key("KNIFE_CONFIG"):
+        api = chef.ChefAPI.from_config_file(os.environ["KNIFE_CONFIG"])
+    else:
+        api = chef.autoconfigure()
 
     # let the command handler do its magic on the command line arguments
     for i, argument in enumerate(arguments):
