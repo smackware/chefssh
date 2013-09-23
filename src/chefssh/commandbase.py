@@ -13,7 +13,7 @@ def search_pick_node(search_query, api):
         lets the user pick interactivly if there are multiple nodes returned
         Throws LookupError if can't find a matching node
     """
-    nodes = [node for node in chef.Search('node', search_query, api=api)]
+    nodes = [node for node in chef.Search('node', search_query, api=api) if node is not None]
     node = None
 
     # no nodes match the search
